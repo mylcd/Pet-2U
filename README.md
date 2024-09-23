@@ -4,18 +4,18 @@
 ![Stack Flow (1)](db_diagram.png)
 
 
-## BACKEND API
-## Auth
-### All apis that require authentication
+## BACKEND APIS
+## Authentication
+
+### Login Required
 All apis that require a current logged in user.
 
-* Request: apis that require authentication
-* Error Response: Require authentication
-  * Status Code: 401
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Request: all apis that require authentication
+- Error Response:
+  - Status Code: 401
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "errors":
@@ -25,17 +25,15 @@ All apis that require a current logged in user.
     }
     ```
 
-### All apis that require proper authorization
-All apis that require authentication and the current user does not have the
-correct permission to view.
+### Specific User Required
+All apis that require users with right permission to view.
 
-* Request: apis that require proper authorization
-* Error Response: Require proper authorization
-  * Status Code: 403
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Request: all apis that require proper authorization
+- Error Response:
+  - Status Code: 403
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "message": "Forbidden"
@@ -43,20 +41,18 @@ correct permission to view.
     ```
 
 ### Get all Users
-Returns the information about the all users
+Returns the information of all users
 
-* Require Authentication: true
-* Request
-  * Method: GET
-  * URL: /api/users
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Login Required: true
+- Request:
+  - Method: GET
+  - URL: /api/users
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "users": [
@@ -70,20 +66,18 @@ Returns the information about the all users
     ```
 
 ### Get an User with Specific id
-Returns the information about a user of a specific id
+Returns the information of a user with specific id
 
-* Require Authentication: true
-* Request
-  * Method: GET
-  * URL: /api/users/:userId
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Login Required: true
+- Request:
+  - Method: GET
+  - URL: /api/users/:userId
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "id": 1,
@@ -95,27 +89,24 @@ Returns the information about a user of a specific id
 ### Log In a User
 Logs in a current user with email and password and returns the user's information.
 
-* Require Authentication: false
-* Request
-  * Method: POST
-  * URL: /api/auth/login
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Login Required: false
+- Request:
+  - Method: POST
+  - URL: /api/auth/login
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "email": "john.smith@gmail.com",
       "password": "secret password"
     }
     ```
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "id": 1,
@@ -123,13 +114,11 @@ Logs in a current user with email and password and returns the user's informatio
       "username": "JohnSmith"
     }
     ```
-
-* Error Response: Invalid credentials
-  * Status Code: 401
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Error Response: Invalid credentials
+  - Status Code: 401
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "error": "No such user exists.",
@@ -137,18 +126,16 @@ Logs in a current user with email and password and returns the user's informatio
       "error": "Password was incorrect."
     }
     ```
-
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Error response: Body validation errors
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "message": "Bad Request",
       "errors": {
-        "email": "email is required" /*or*/ "Email provided not found.",
+        "email": "email is required" /-or-/ "Email provided not found.",
         "password": "password is required"
       }
     }
@@ -157,18 +144,16 @@ Logs in a current user with email and password and returns the user's informatio
 ### Log out
 Log the current user out.
 
-* Require Authentication: false
-* Request
-  * Method: GET
-  * URL: /api/auth/logout
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Login Required: false
+- Request
+  - Method: GET
+  - URL: /api/auth/logout
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "message": "User logged out"
@@ -178,14 +163,13 @@ Log the current user out.
 ### Sign Up a User
 Create a new user, log in, and return the user's information.
 
-* Require Authentication: false
-* Request
-  * Method: POST
-  * URL: /api/auth/signup
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Login Required: false
+- Request
+  - Method: POST
+  - URL: /api/auth/signup
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "username": "JohnSmith",
@@ -193,13 +177,11 @@ Create a new user, log in, and return the user's information.
       "password": "secret password"
     }
     ```
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "id": 1,
@@ -207,13 +189,11 @@ Create a new user, log in, and return the user's information.
       "username": "JohnSmith"
     }
     ```
-
-* Error response: Validation Errors
-  * Status Code: 401
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
+- Error response:
+  - Status Code: 401
+  - Headers:
+    - Content-Type: application/json
+  - Body:
     ```json
     {
       "errors": {
