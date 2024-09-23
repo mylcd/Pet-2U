@@ -5,7 +5,7 @@
 
 
 ## BACKEND APIS
-## Authentication
+## Authentication APIs
 
 ### Login Required
 All apis that require a current logged in user.
@@ -135,7 +135,7 @@ Logs in a current user with email and password and returns the user's informatio
     {
       "message": "Bad Request",
       "errors": {
-        "email": "email is required" /-or-/ "Email provided not found.",
+        "email": "email is required" /*or*/ "Email provided not found.",
         "password": "password is required"
       }
     }
@@ -209,5 +209,206 @@ Create a new user, log in, and return the user's information.
           "This field is required"
         ]
       }
+    }
+    ```
+
+## Store APIs
+
+### Get all Stores
+Returns the information of all stores
+
+- Login Required: false
+- Request:
+  - Method: GET
+  - URL: /api/stores
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "stores": [
+        {
+          "id": 1,
+          "userId": 1,
+          "name": "Pekaboo",
+          "description": "This store sells ...",
+          "created_on": "2024-09-23/13:35:20",
+          "updated_on": "2024-09-23/13:35:20"
+        }
+      ]
+    }
+    ```
+
+### Get Details of a Store
+Returns the detailed information of a store with specific id
+
+- Login Required: false
+- Request:
+  - Method: GET
+  - URL: /api/stores
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Pekaboo",
+      "description": "This store sells ...",
+      "created_on": "2024-09-23/13:35:20",
+      "updated_on": "2024-09-23/13:35:20",
+      "Products": [
+        {
+          "id": 1,
+          "storeId": 1,
+          "name": "Oreo",
+          "price": 288,
+          "stock": 1,
+          "sold": 0,
+          "review": 0,
+          "avgStar": -1,
+          "created_on": "2024-09-23/14:05:16",
+          "updated_on": "2024-09-23/14:05:16"
+        }
+      ],
+      "StoreManagers": [
+        {
+          "id": 1,
+          "storeId": 1,
+          "userId": 2
+        }
+      ]
+    }
+    ```
+
+### Create a Store
+Create a new store and return its information
+
+- Login Required: true
+- Request:
+  - Method: POST
+  - URL: /api/stores
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "name": "Pekaboo",
+      "description": "This store sells ..."
+    }
+    ```
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Pekaboo",
+      "description": "This store sells ...",
+      "created_on": "2024-09-23/13:35:20",
+      "updated_on": "2024-09-23/13:35:20"
+    }
+    ```
+
+- Error response:
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "message": "Store name already exists"
+    }
+    ```
+
+### Update a Store
+Update an existing store and return its information
+
+- Login Required: true
+- Specific User Required: must be the owner of the store
+- Request:
+  - Method: PUT
+  - URL: /api/stores/:storeId
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "name": "PekaPeka",
+      "description": "This store is very ..."
+    }
+    ```
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "PekaPeka",
+      "description": "This store is very ...",
+      "created_on": "2024-09-23/13:35:20",
+      "updated_on": "2024-09-23/13:51:06"
+    }
+    ```
+- Error response: Store not found
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "message": "Store not found"
+    }
+    ```
+- Error response: name duplication
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "message": "Store name already exists"
+    }
+    ```
+
+### Delete a Store
+Delete an existing store
+
+- Login Required: true
+- Specific User Required: must be the owner of the store
+- Request:
+  - Method: DELETE
+  - URL: /api/stores/:storeId
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "message": "Successfully Deleted"
+    }
+    ```
+- Error response:
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "message": "Store not found"
     }
     ```
