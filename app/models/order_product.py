@@ -11,7 +11,7 @@ class OrderProduct(db.Model):
   order_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('orders.id')), nullable=False)
   product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
   amount = db.Column(db.Integer, nullable=False)
-  price = db.Column(db.Double, nullable=False)
+  price = db.Column(db.Float, nullable=False)
 
   order = db.relationship('Order', back_populates="order_products")
   product = db.relationship('Product', back_populates="order_products")

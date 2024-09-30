@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
@@ -13,11 +13,11 @@ class Store(db.Model):
   name = db.Column(db.String(100), nullable=False)
   description = db.Column(db.String(1000), nullable=False)
 
-  created_on = db.Column(db.DateTime, default=datetime.now)
-  updated_on = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+  created_on = db.Column(db.DateTime, default=datetime.now())
+  updated_on = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
 
   user = db.relationship('User', back_populates='stores')
-  answers = db.relationship('Product', back_populates='question', cascade='all, delete-orphan')
+  products = db.relationship('Product', back_populates='store', cascade='all, delete-orphan')
 
   def to_dict(self):
     return {
