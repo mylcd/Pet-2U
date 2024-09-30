@@ -11,7 +11,7 @@ class Product(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   store_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stores.id')), nullable=False)
   name = db.Column(db.String(100), nullable=False)
-  price = db.Column(db.Integer, nullable=False)
+  price = db.Column(db.Double, nullable=False)
   stock = db.Column(db.Integer, nullable=False)
   sold = db.Column(db.Integer, nullable=False)
   review_count = db.Column(db.Integer, nullable=False)
