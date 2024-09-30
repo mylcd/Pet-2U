@@ -446,10 +446,7 @@ Returns the information of all products
           "avgStar": 5,
           "previewImage": "default.png",
           "created_on": "2024-09-30/09:53:25",
-          "updated_on": "2024-09-30/09:53:25",
-          "ProductImages": [
-            "url://url.placeholder/1"
-          ]
+          "updated_on": "2024-09-30/09:53:25"
         }
       ]
     }
@@ -482,10 +479,7 @@ Returns the information of all products that belong to a store
           "avgStar": 5,
           "previewImage": "default.png",
           "created_on": "2024-09-30/09:53:25",
-          "updated_on": "2024-09-30/09:53:25",
-          "ProductImages": [
-            "url://url.placeholder/1"
-          ]
+          "updated_on": "2024-09-30/09:53:25"
         }
       ]
     }
