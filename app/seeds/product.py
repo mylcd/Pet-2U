@@ -1,4 +1,4 @@
-from app.models import db, Product, environment, SCHEMA
+from app.models import db, Product, ProductImage, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_products():
@@ -33,16 +33,25 @@ def seed_products():
     preview_image="default.png"
   )
 
+  pikachu_png = ProductImage(
+    product_id=1,
+    url="https://en.wikipedia.org/wiki/Pikachu#/media/File:Pok%C3%A9mon_Pikachu_art.png"
+  )
+
 
   db.session.add(pikachu)
   db.session.add(eevee)
   db.session.add(weavile)
+  db.session.add(pikachu_png)
+
   db.session.commit()
 
 def undo_products():
   if environment == "production":
+    db.session.execute(f"TRUNCATE table {SCHEMA}.product_images RESTART IDENTITY CASCADE;")
     db.session.execute(f"TRUNCATE table {SCHEMA}.products RESTART IDENTITY CASCADE;")
   else:
+    db.session.execute(text("DELETE FROM product_images"))
     db.session.execute(text("DELETE FROM products"))
 
   db.session.commit()
