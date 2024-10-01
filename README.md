@@ -121,9 +121,7 @@ Logs in a current user with email and password and returns the user's informatio
   - Body:
     ```json
     {
-      "error": "No such user exists.",
-      // or
-      "error": "Password was incorrect."
+      "error": "No such user exists. / Password was incorrect."
     }
     ```
 - Error response: Body validation errors
