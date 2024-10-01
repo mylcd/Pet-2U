@@ -2,7 +2,7 @@ from app.models import db, Product, ProductImage, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_products():
-  pikachu = Store(
+  pikachu = Product(
     store_id=1,
     name="Pikachu",
     price=300,
@@ -12,7 +12,7 @@ def seed_products():
     avg_star=-1,
     preview_image="default.png"
   )
-  eevee = Store(
+  eevee = Product(
     store_id=1,
     name="Eevee",
     price=800,
@@ -22,7 +22,7 @@ def seed_products():
     avg_star=-1,
     preview_image="default.png"
   )
-  weavile = Store(
+  weavile = Product(
     store_id=1,
     name="Weavile",
     price=149,
