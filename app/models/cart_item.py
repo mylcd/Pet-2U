@@ -13,5 +13,5 @@ class CartItem(db.Model):
   amount = db.Column(db.Integer, nullable=False)
   price = db.Column(db.Float, nullable=False)
 
-  order = db.relationship('User', back_populates="cart_items")
+  user = db.relationship('User', back_populates="cart_items")
   product = db.relationship('Product', back_populates="cart_items")

@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     stores = db.relationship('Store', back_populates='user', cascade='all, delete-orphan')
     orders = db.relationship('Order', back_populates='user', cascade='all, delete-orphan')
+    cart_items = db.relationship('CartItem', back_populates='user', cascade='all, delete-orphan')
 
     @property
     def password(self):
