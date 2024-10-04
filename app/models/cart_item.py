@@ -11,7 +11,6 @@ class CartItem(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
   amount = db.Column(db.Integer, nullable=False)
-  price = db.Column(db.Float, nullable=False)
 
   user = db.relationship('User', back_populates="cart_items")
   product = db.relationship('Product', back_populates="cart_items")
@@ -22,5 +21,4 @@ class CartItem(db.Model):
       'userId': self.user_id,
       'productId': self.product_id,
       'amount': self.amount,
-      'price': self.price
     }

@@ -19,6 +19,58 @@ export const getCartProducts = () => async (dispatch) => {
   }
 }
 
+export const removeCartProducts = (cartItemId) => async () => {
+  const res = await fetch(`/api/carts/${cartItemId}`, {
+    method: "DELETE"
+  });
+  if(res.ok) {
+    const data = await response.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+}
+
+export const editCartProducts = (body) => async () => {
+  const { amount, cartItemId } = body;
+  const res = await fetch(`/api/carts/${cartItemId}`, {
+    method: "PUT",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({amount})
+  });
+  if(res.ok) {
+    const data = await response.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+}
+
+export const createCartProducts = (body) => async () => {
+  const res = await fetch("/api/carts/", {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  if(res.ok) {
+    const data = await response.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await response.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+}
+
 // Reducer
 const initialState = {
   cartProducts: [],

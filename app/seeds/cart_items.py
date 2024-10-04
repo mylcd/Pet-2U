@@ -2,7 +2,7 @@ from app.models import db, CartItem, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_carts():
-  buying = CartItem(user_id=2, product_id=1, amount=1, price=300)
+  buying = CartItem(user_id=2, product_id=1, amount=1)
 
   db.session.add(buying)
   db.session.commit()

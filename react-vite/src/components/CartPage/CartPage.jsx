@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
-import { getCartProducts } from "../../redux/cart";
+import { getCartProducts, removeCartProducts } from "../../redux/cart";
 
 function CartPage() {
   const dispatch = useDispatch();

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
 from app.models import CartItem
+from app.forms import CartForm, CartEditForm
 from flask_login import current_user, login_required
 
 cart_routes = Blueprint('carts', __name__)
@@ -13,3 +14,55 @@ def get_cart_products():
   }
 
   return jsonify(cart_items_res), 200
+
+@cart_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_cart_products(id):
+  cart_item = CartItem.query.get(id)
+
+  if not cart_item:
+    return jsonify({"message": "Cart Item not found"}), 404
+
+  if cart_item.user_id != current_user.id:
+    return jsonify({"message": "Forbidden"}), 403
+
+  db.session.delete(cart_item)
+  db.session.commit()
+  return jsonify({"message": "Successfully deleted"})
+
+@cart_routes.route('/<int:id>', methods=["PUT"])
+@login_required
+def delete_cart_products(id):
+  cart_item = CartItem.query.get(id)
+
+  if not cart_item:
+    return jsonify({"message": "Cart Item not found"}), 404
+
+  if cart_item.user_id != current_user.id:
+    return jsonify({"message": "Forbidden"}), 403
+
+  form = CartEditForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    cart_item.amount = form.data['amount']
+    db.session.commit()
+    return jsonify(cart_item.to_dict()), 201
+  else:
+    return form.errors, 401
+
+@cart_routes.route('/', methods=["POST"])
+@login_required
+def create_cart_products():
+  form = CartForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    cart_item = CartItem(
+      user_id=current_user.id
+      product_id=form.data['product_id'],
+      amount=form.data['amount'],
+    )
+    db.session.add(question)
+    db.session.commit()
+    return jsonify(cart_item.to_dict()), 201
+  else:
+    return form.errors, 401
