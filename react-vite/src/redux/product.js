@@ -2,8 +2,8 @@ const GET_PRODUCTS = 'products/getAllProducts'
 
 // Action Creators
 const getProducts = (products) => ({
-    type: GET_PRODUCTS,
-    payload: products
+  type: GET_PRODUCTS,
+  payload: products
 })
 
 // Thunks

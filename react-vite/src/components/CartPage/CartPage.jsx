@@ -8,7 +8,6 @@ function CartPage() {
   //const navigate = useNavigate();
 
   const cartProducts = useSelector(state => state.cart.cartProducts);
-  console.log(cartProducts);
   const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {

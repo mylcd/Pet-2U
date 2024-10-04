@@ -16,3 +16,17 @@ class Order(db.Model):
 
   user = db.relationship('User', back_populates='orders')
   order_products = db.relationship('OrderProduct', back_populates='order', cascade='all, delete-orphan')
+
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'userId': self.user_id,
+      'Products': [{
+        'amount': order_product.amount,
+        'price': order_product.price,
+        'name': order_product.product.name,
+        'previewImg': order_product.product.preview_image
+      } for order_product in self.order_products],
+      'created_on': self.created_on,
+      'updated_on': self.updated_on
+    }

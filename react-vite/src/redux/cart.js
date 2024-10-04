@@ -2,8 +2,8 @@ const GET_PRODUCTS = 'carts/getCartProducts'
 
 // Action Creators
 const getProducts = (products) => ({
-    type: GET_PRODUCTS,
-    payload: products
+  type: GET_PRODUCTS,
+  payload: products
 })
 
 // Thunks
@@ -24,10 +24,10 @@ export const removeCartProducts = (cartItemId) => async () => {
     method: "DELETE"
   });
   if(res.ok) {
-    const data = await response.json();
+    const data = await res.json();
     return data;
   } else if (res.status < 500) {
-    const errorMessages = await response.json();
+    const errorMessages = await res.json();
     return errorMessages;
   } else {
     return { server: "Internal Server Error" };
@@ -44,10 +44,10 @@ export const editCartProducts = (body) => async () => {
     body: JSON.stringify({amount})
   });
   if(res.ok) {
-    const data = await response.json();
+    const data = await res.json();
     return data;
   } else if (res.status < 500) {
-    const errorMessages = await response.json();
+    const errorMessages = await res.json();
     return errorMessages;
   } else {
     return { server: "Internal Server Error" };
@@ -61,10 +61,10 @@ export const createCartProducts = (body) => async () => {
     body: JSON.stringify(body)
   });
   if(res.ok) {
-    const data = await response.json();
+    const data = await res.json();
     return data;
   } else if (res.status < 500) {
-    const errorMessages = await response.json();
+    const errorMessages = await res.json();
     return errorMessages;
   } else {
     return { server: "Internal Server Error" };

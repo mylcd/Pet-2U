@@ -32,7 +32,7 @@ def delete_cart_products(id):
 
 @cart_routes.route('/<int:id>', methods=["PUT"])
 @login_required
-def delete_cart_products(id):
+def edit_cart_products(id):
   cart_item = CartItem.query.get(id)
 
   if not cart_item:
@@ -57,7 +57,7 @@ def create_cart_products():
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     cart_item = CartItem(
-      user_id=current_user.id
+      user_id=current_user.id,
       product_id=form.data['product_id'],
       amount=form.data['amount'],
     )
