@@ -13,3 +13,13 @@ def get_all_orders():
   }
 
   return jsonify(orders_res), 200
+
+@order_routes.route('/', methods=["POST"])
+@login_required
+def create_orders():
+  order = Order(
+    user_id=current_user.id,
+  )
+  db.session.add(order)
+  db.session.commit()
+  return jsonify({'id': order.id}), 201

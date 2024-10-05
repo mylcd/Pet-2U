@@ -61,7 +61,7 @@ def create_cart_products():
       product_id=form.data['product_id'],
       amount=form.data['amount'],
     )
-    db.session.add(question)
+    db.session.add(cart_item)
     db.session.commit()
     return jsonify(cart_item.to_dict()), 201
   else:

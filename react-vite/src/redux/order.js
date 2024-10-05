@@ -16,6 +16,16 @@ export const getAllOrders = () => async (dispatch) => {
   }
 }
 
+export const createOrders = () => async (dispatch) => {
+  const res = await fetch("/api/orders/", {
+    method: 'POST'
+  });
+  if(res.ok) {
+    const data = await res.json();
+    return data;
+  }
+}
+
 // Reducer
 const initialState = {
   allOrders: [],
