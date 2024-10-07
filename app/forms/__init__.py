@@ -5,3 +5,4 @@ from .cart_edit_form import CartEditForm
 from .order_product_form import OrderProductForm
 from .store_form import StoreForm
 from .product_form import ProductForm
+from .product_edit_form import ProductEditForm

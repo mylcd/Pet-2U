@@ -48,23 +48,26 @@ def create_stores():
 @login_required
 def update_stores(id):
   store = Store.query.get(id)
-  if store:
-    form = StoreForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-      if form.validate_on_submit():
-
-        if form.data['name'] != store.name:
-          if Store.query.filter(Order.name == form.data['name']).one():
-            return jsonify({'message': "Store name already exists"}), 400
-
-        store.name = form.data['name']
-        store.description = form.data['description']
-        db.session.commit()
-        return jsonify(store.to_dict()), 200
-      else:
-        return form.errors, 401
-  else:
+  if not store:
     return jsonify({'message': "Store not found"}), 404
+
+  if store.user_id != current_user.id:
+    return jsonify({"message": "Forbidden"}), 403
+
+  form = StoreForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+
+      if form.data['name'] != store.name:
+        if Store.query.filter(Order.name == form.data['name']).one():
+          return jsonify({'message': "Store name already exists"}), 400
+
+      store.name = form.data['name']
+      store.description = form.data['description']
+      db.session.commit()
+      return jsonify(store.to_dict()), 200
+    else:
+      return form.errors, 401
 
 @store_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
