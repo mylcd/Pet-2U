@@ -40,6 +40,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('store_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('description', sa.String(length=1000), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
     sa.Column('stock', sa.Integer(), nullable=False),
     sa.Column('sold', sa.Integer(), nullable=False),

@@ -3,9 +3,9 @@ from app.models import OrderProduct, Product
 from app.forms import OrderProductForm
 from flask_login import current_user, login_required
 
-order_products_routes = Blueprint('order_products', __name__)
+order_product_routes = Blueprint('order_products', __name__)
 
-@order_routes.route('/<int:order_id>/<int:product_id>', methods=["POST"])
+@order_product_routes.route('/<int:order_id>/<int:product_id>', methods=["POST"])
 @login_required
 def create_order_products(order_id, product_id):
   form = OrderProductForm()

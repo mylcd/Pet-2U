@@ -26,6 +26,7 @@ def get_store_details(id):
   return jsonify(store_res), 200
 
 @store_routes.route('/', methods=["POST"])
+@login_required
 def create_stores():
   form = StoreForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -42,3 +43,40 @@ def create_stores():
     return jsonify(store.to_dict()), 201
   else:
     return form.errors, 401
+
+@store_routes.route('/<int:id>', methods=["PUT"])
+@login_required
+def update_stores(id):
+  store = Store.query.get(id)
+  if store:
+    form = StoreForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+      if form.validate_on_submit():
+
+        if form.data['name'] != store.name:
+          if Store.query.filter(Order.name == form.data['name']).one():
+            return jsonify({'message': "Store name already exists"}), 400
+
+        store.name = form.data['name']
+        store.description = form.data['description']
+        db.session.commit()
+        return jsonify(store.to_dict()), 200
+      else:
+        return form.errors, 401
+  else:
+    return jsonify({'message': "Store not found"}), 404
+
+@store_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_stores(id):
+  store = Store.query.get(id)
+
+  if not store:
+    return jsonify({"message": "Store not found"}), 404
+
+  if store.user_id != current_user.id:
+    return jsonify({"message": "Forbidden"}), 403
+
+  db.session.delete(store)
+  db.session.commit()
+  return jsonify({"message": "Successfully deleted"})

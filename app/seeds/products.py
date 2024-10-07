@@ -5,6 +5,7 @@ def seed_products():
   pikachu = Product(
     store_id=1,
     name="Pikachu",
+    description="Electric type pokemon",
     price=300,
     stock=1,
     sold=0,
@@ -15,6 +16,7 @@ def seed_products():
   eevee = Product(
     store_id=1,
     name="Eevee",
+    description="Normal type pokemon",
     price=800,
     stock=1,
     sold=1,
@@ -25,6 +27,7 @@ def seed_products():
   weavile = Product(
     store_id=1,
     name="Weavile",
+    description="Dark and Ice type pokemon",
     price=149,
     stock=3,
     sold=2,
