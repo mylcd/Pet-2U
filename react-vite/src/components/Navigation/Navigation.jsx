@@ -1,18 +1,40 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import NavLogo from "../../../public/NavLogo.svg"
+import NavCart from "../../../public/NavCart.svg"
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
 function Navigation() {
-  return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+  const navigate = useNavigate();
 
-      <li>
+  const handleNavigateHome = () => {
+    navigate('/');
+  }
+  const handleNavigateCart = () => {
+    navigate('/cart');
+  }
+
+  return (
+    <nav className="navbar">
+      <div>
+        <button
+          id="home-button"
+          onClick={handleNavigateHome}
+        >
+          <img id="home-logo" src={NavLogo}/>
+        </button>
+      </div>
+
+      <div className="nav-topright">
         <ProfileButton />
-      </li>
-    </ul>
+        <button
+          id="cart-button"
+          onClick={handleNavigateCart}
+        >
+          <img id="cart-logo" src={NavCart}/>
+        </button>
+      </div>
+    </nav>
   );
 }
 

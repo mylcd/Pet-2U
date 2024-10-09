@@ -71,7 +71,7 @@ export const createCartProducts = (body) => async () => {
   }
 }
 
-export const createOrderProducts = (body) => async () => {
+export const createOrderProducts = (body) => async (dispatch) => {
   const { amount, orderId, productId, cartItemId } = body;
   const res = await fetch(`/api/order_products/${orderId}/${productId}`, {
     method: 'POST',

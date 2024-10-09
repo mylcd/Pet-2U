@@ -45,7 +45,7 @@ def create_products():
 
     for image in form.data['images']:
       product_image = ProductImage(
-        product_id=product.id
+        product_id=product.id,
         url=image
       )
       db.session.add(product_image)
@@ -67,29 +67,29 @@ def update_products(id):
 
   form = ProductEditForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-      product.name = form.data['name']
-      product.description = form.data['description']
-      product.price = form.data['price']
-      product.stock = form.data['stock']
-      db.session.commit()
+  if form.validate_on_submit():
+    product.name = form.data['name']
+    product.description = form.data['description']
+    product.price = form.data['price']
+    product.stock = form.data['stock']
+    db.session.commit()
 
-      product_images = ProductImage.query.filter(ProductImage.product_id == product.id).all()
-      for product_image in product_images:
-        db.session.delete(product_image)
-      db.session.commit()
+    product_images = ProductImage.query.filter(ProductImage.product_id == product.id).all()
+    for product_image in product_images:
+      db.session.delete(product_image)
+    db.session.commit()
 
-      for image in form.data['images']:
-        product_image = ProductImage(
-          product_id=product.id
-          url=image
-        )
-        db.session.add(product_image)
-      db.session.commit()
+    for image in form.data['images']:
+      product_image = ProductImage(
+        product_id=product.id,
+        url=image
+      )
+      db.session.add(product_image)
+    db.session.commit()
 
-      return jsonify(product.to_dict()), 200
-    else:
-      return form.errors, 401
+    return jsonify(product.to_dict()), 200
+  else:
+    return form.errors, 401
 
 @product_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
