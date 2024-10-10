@@ -1,0 +1,41 @@
+.product-list {
+  display: flex;
+  column-gap: 10px;
+  row-gap: 10px;
+  flex-wrap: wrap;
+}
+
+.product-item {
+  width: 266px;
+  height: 310px;
+  cursor: pointer;
+}
+
+.product-item:hover {
+  background-color: rgb(180, 180, 180);
+}
+
+.product-preview {
+  margin: 8px;
+  width: 250px;
+  height: 250px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.product-label {
+  width: 250px;
+  margin-left: 8px;
+  margin-right: 8px;
+  font-size: larger;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-name {
+  color: rgb(72, 55, 110);
+}
+
+.product-price {
+  color: rgb(219, 127, 40);
+}
