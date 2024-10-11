@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, current_app
-from app.models import CartItem
+from app.models import CartItem, db
 from app.forms import CartForm, CartEditForm
 from flask_login import current_user, login_required
 

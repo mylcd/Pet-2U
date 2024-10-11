@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify, current_app
-from app.models import Store
+from app.models import Store, db
 from app.forms import StoreForm
 from flask_login import current_user, login_required
 
-store_routes = Blueprint('products', __name__)
+store_routes = Blueprint('stores', __name__)
 
 @store_routes.route('/')
 def get_all_stores():
@@ -31,7 +31,7 @@ def create_stores():
   form = StoreForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    if Store.query.filter(Order.name == form.data['name']).one():
+    if len(Store.query.filter(Store.name == form.data['name']).all()) > 0:
       return jsonify({'message': "Store name already exists"}), 400
     store = Store(
       user_id=current_user.id,
@@ -56,18 +56,18 @@ def update_stores(id):
 
   form = StoreForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
+  if form.validate_on_submit():
 
-      if form.data['name'] != store.name:
-        if Store.query.filter(Order.name == form.data['name']).one():
-          return jsonify({'message': "Store name already exists"}), 400
+    if form.data['name'] != store.name:
+      if Store.query.filter(Order.name == form.data['name']).one():
+        return jsonify({'message': "Store name already exists"}), 400
 
-      store.name = form.data['name']
-      store.description = form.data['description']
-      db.session.commit()
-      return jsonify(store.to_dict()), 200
-    else:
-      return form.errors, 401
+    store.name = form.data['name']
+    store.description = form.data['description']
+    db.session.commit()
+    return jsonify(store.to_dict()), 200
+  else:
+    return form.errors, 401
 
 @store_routes.route('/<int:id>', methods=["DELETE"])
 @login_required

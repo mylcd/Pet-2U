@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, current_app
-from app.models import Order
+from app.models import Order, db
 from flask_login import current_user, login_required
 
 order_routes = Blueprint('orders', __name__)

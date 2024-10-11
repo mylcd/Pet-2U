@@ -15,11 +15,9 @@ function ProductSearchPage() {
   console.log("params", params);*/
 
   const products = useSelector(state => state.product.allProducts);
-  console.log(products);
   //const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {
-    console.log("hello");
     dispatch(getAllProducts());
   }, [dispatch]);
 

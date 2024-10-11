@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, current_app
-from app.models import OrderProduct, Product
+from app.models import OrderProduct, Product, db
 from app.forms import OrderProductForm
 from flask_login import current_user, login_required
 

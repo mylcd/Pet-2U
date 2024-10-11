@@ -8,12 +8,18 @@ const getProducts = (products) => ({
 
 // Thunks
 export const getAllProducts = () => async (dispatch) => {
-  console.log("hello");
   const res = await fetch('/api/products/');
-  console.log(res);
   if(res.ok) {
     const data = await res.json();
-    console.log(data);
+    dispatch(getProducts(data));
+    return data;
+  }
+}
+
+export const getStoreProducts = (id) => async (dispatch) => {
+  const res = await fetch(`/api/products/stores/${id}`);
+  if(res.ok) {
+    const data = await res.json();
     dispatch(getProducts(data));
     return data;
   }
