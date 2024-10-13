@@ -14,7 +14,7 @@ export const getStoreDetails = (id) => async (dispatch) => {
     dispatch(storeDetails(data));
     return data;
   }
-}
+};
 
 export const createNewStores = (body) => async () => {
   const res = await fetch("/api/stores/", {
@@ -27,6 +27,55 @@ export const createNewStores = (body) => async () => {
     return data;
   } else if (res.status < 500) {
     const errorMessages = await res.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+};
+
+export const closeStore = (id) => async () => {
+  const res = await fetch(`/api/stores/${id}`, {
+    method: 'DELETE',
+  });
+  if(res.ok) {
+    const data = await res.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await res.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+};
+
+export const openStore = (id) => async () => {
+  const res = await fetch(`/api/stores/${id}/reopen`, {
+    method: 'POST',
+  });
+  if(res.ok) {
+    const data = await res.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await res.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+};
+
+export const changeStore = ({ id, name, description }) => async () => {
+  const res = await fetch(`/api/stores/${id}`, {
+    method: 'PUT',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({name, description})
+  });
+  console.log(res);
+  if(res.ok) {
+    const data = await res.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await res.json();
+    console.log(errorMessages);
     return errorMessages;
   } else {
     return { server: "Internal Server Error" };

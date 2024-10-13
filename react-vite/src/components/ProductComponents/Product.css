@@ -9,6 +9,7 @@
   width: 266px;
   height: 310px;
   cursor: pointer;
+  background-color: rgb(163, 163, 163);
 }
 
 .product-item:hover {
@@ -38,4 +39,13 @@
 
 .product-price {
   color: rgb(219, 127, 40);
+}
+
+.product-error {
+  font-weight: bold;
+  padding: 36px;
+  position: relative;
+  bottom: 52%;
+  font-size: 30px;
+  background-color: rgb(141, 66, 66, 0.75);
 }

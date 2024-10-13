@@ -1,0 +1,47 @@
+.store-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.store-edit {
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  font-weight: bolder;
+  list-style-type: none;
+}
+
+.store-edit button{
+  height: 22px;
+  margin-left: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  border: none;
+  background-color: rgb(240, 169, 89);
+  cursor: pointer;
+}
+
+.store-edit button:hover {
+  background-color: rgb(125, 157, 245);
+}
+
+.store-owner {
+  margin-bottom: 30px;
+}
+
+.store-subtitle {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.store-content {
+  font-size: 14px;
+  color: rgb(54, 54, 54);
+  margin-bottom: 30px;
+}
+
+.store-delete button {
+  width: 50px;
+}

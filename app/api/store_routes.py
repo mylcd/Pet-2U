@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, current_app
-from app.models import Store, db
+from app.models import Store, Product, db
 from app.forms import StoreForm
 from flask_login import current_user, login_required
 
@@ -59,7 +59,7 @@ def update_stores(id):
   if form.validate_on_submit():
 
     if form.data['name'] != store.name:
-      if Store.query.filter(Order.name == form.data['name']).one():
+      if len(Store.query.filter(Store.name == form.data['name']).all()) > 0:
         return jsonify({'message': "Store name already exists"}), 400
 
     store.name = form.data['name']
@@ -80,6 +80,26 @@ def delete_stores(id):
   if store.user_id != current_user.id:
     return jsonify({"message": "Forbidden"}), 403
 
-  db.session.delete(store)
+  products = Product.query.filter(Product.store_id == id).all()
+  for product in products:
+    product.closed = True
+    db.session.commit()
+
+  store.closed = True
   db.session.commit()
   return jsonify({"message": "Successfully deleted"})
+
+@store_routes.route('/<int:id>/reopen', methods=["POST"])
+@login_required
+def reopen_stores(id):
+  store = Store.query.get(id)
+
+  if not store:
+    return jsonify({"message": "Store not found"}), 404
+
+  if store.user_id != current_user.id:
+    return jsonify({"message": "Forbidden"}), 403
+
+  store.closed = False
+  db.session.commit()
+  return jsonify({"message": "Successfully reopened"})

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormPage() {
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -27,7 +28,12 @@ function LoginFormPage() {
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
-      navigate("/");
+      if(location.state) {
+        navigate(location.state.origin);
+      }
+      else {
+        navigate("/");
+      }
     }
   };
 

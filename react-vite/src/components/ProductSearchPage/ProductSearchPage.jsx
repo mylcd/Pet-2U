@@ -23,7 +23,7 @@ function ProductSearchPage() {
 
   return (
     <div>
-      <ProductList products={products} />
+      <ProductList products={products.filter((product) => product.closed == false)} />
     </div>
   )
 }

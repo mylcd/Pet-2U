@@ -23,6 +23,7 @@ function ProductList({ products }) {
                   ${product.price.toFixed(2)}
                 </label>
               </div>
+              {product.closed && <label className="product-error error">Out of Order</label>}
             </div>
           )
         })

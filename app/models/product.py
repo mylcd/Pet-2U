@@ -18,6 +18,7 @@ class Product(db.Model):
   review_count = db.Column(db.Integer, nullable=False)
   avg_star = db.Column(db.Float, nullable=False)
   preview_image = db.Column(db.String(1000), nullable=False)
+  closed = db.Column(db.Boolean, nullable=False, default=False)
 
   created_on = db.Column(db.DateTime, default=datetime.now())
   updated_on = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
@@ -38,6 +39,7 @@ class Product(db.Model):
       'reviewCount': self.review_count,
       'avgStar': self.avg_star,
       'previewImage': self.preview_image,
+      'closed': self.closed,
       'created_on': self.created_on,
       'updated_on': self.updated_on
     }

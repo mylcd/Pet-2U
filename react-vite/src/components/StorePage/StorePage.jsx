@@ -1,32 +1,87 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getStoreProducts } from "../../redux/product";
 import { getStoreDetails } from "../../redux/store";
+import OpenModalButton from "../OpenModalButton"
 import ProductList from "../ProductComponents/ProductList";
+import StoreDeleteModal from "./StoreDeleteModal";
+import "./Store.css";
 
 function StorePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const products = useSelector(state => state.product.allProducts);
   const store = useSelector(state => state.store.storeDetails);
-  console.log(store.Owner);
-  //const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user);
 
   useEffect(() => {
     dispatch(getStoreProducts(id));
     dispatch(getStoreDetails(id));
   }, [dispatch]);
 
+  const handleNavigateEdit = e => {
+    e.preventDefault();
+    navigate(`/stores/${id}/edit`,
+      {state: { oldName : store.name, oldDescription: store.description}});
+  }
+
+  const handleNavigateNewProduct = e => {
+    e.preventDefault();
+    navigate(`/stores/${id}/new`);
+  }
+
+  // Required Later: Store Comment Summary, All Store Comments, Ask Owner a Question
+
   return (
-    <div>
-      <div>{store.name}</div>
-      {store.Owner && <div>Owned By: {store.Owner.username}</div>}
-      <div>{store.description}</div>
-      <div>Products:  </div>
-      <ProductList products={products} />
-    </div>
+    <>
+      {store.Owner &&
+        <div className="apple-font">
+          <div className="store-title">{store.name}</div>
+          {sessionUser && (sessionUser.id == store.Owner.id) ?
+            <div className="store-edit apple-font">
+              <div className="store-owner">Owned By You</div>
+              <button
+                type="button"
+                onClick={handleNavigateEdit}
+              >
+                Edit
+              </button>
+              <OpenModalButton
+                buttonText={(store.closed == true) ? "Open" : "Close"}
+                modalComponent={<StoreDeleteModal storeId = {store.id} closed = {store.closed}/>}
+              />
+              <button
+                type="button"
+                onClick={handleNavigateNewProduct}
+              >
+                Create New Listing
+              </button>
+            </div>
+            :
+            <div className="store-owner">Owned By: {store.Owner.username}</div>
+          }
+
+          {(store.closed == true) ?
+            <div>Store Temporarily Closed</div>
+            :
+            <>
+              <div className="store-subtitle">About Seller: </div>
+              <div className="store-content">{store.description}</div>
+              <div className="store-subtitle">Products:  </div>
+            </>
+          }
+          {sessionUser && (sessionUser.id == store.Owner.id) ?
+            <ProductList products={products} />
+            :
+            <ProductList products={products.filter((product) => product.closed == false)} />
+          }
+
+        </div>
+      }
+    </>
   )
 }
 

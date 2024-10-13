@@ -102,6 +102,21 @@ def delete_products(id):
   if product.user_id != current_user.id:
     return jsonify({"message": "Forbidden"}), 403
 
-  db.session.delete(product)
+  product.closed = True
+  db.session.commit()
+  return jsonify({"message": "Successfully deleted"})
+
+@product_routes.route('/<int:id>/reopen', methods=["POST"])
+@login_required
+def reopen_products(id):
+  product = Product.query.get(id)
+
+  if not product:
+    return jsonify({"message": "Product not found"}), 404
+
+  if product.user_id != current_user.id:
+    return jsonify({"message": "Forbidden"}), 403
+
+  product.closed = False
   db.session.commit()
   return jsonify({"message": "Successfully deleted"})

@@ -12,6 +12,7 @@ class Store(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   name = db.Column(db.String(100), nullable=False)
   description = db.Column(db.String(1000), nullable=False)
+  closed = db.Column(db.Boolean, nullable=False, default=False)
 
   created_on = db.Column(db.DateTime, default=datetime.now())
   updated_on = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
@@ -25,6 +26,7 @@ class Store(db.Model):
       'userId': self.user_id,
       'name': self.name,
       'description': self.description,
+      'closed': self.closed,
       'created_on': self.created_on,
       'updated_on': self.updated_on
     }
