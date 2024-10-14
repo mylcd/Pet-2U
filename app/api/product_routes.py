@@ -37,8 +37,8 @@ def create_products():
       stock=form.data['stock'],
       sold=0,
       review_count=0,
-      avgStar=-1,
-      preview_image="default.png"
+      avg_star=-1,
+      preview_image=form.data['preview']
     )
     db.session.add(product)
     db.session.commit()

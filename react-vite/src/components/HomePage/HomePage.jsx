@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../redux/product";
+import ProductList from "../ProductComponents/ProductList";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -16,13 +17,7 @@ function HomePage() {
 
   return (
     <div>
-      {products.map((product, i)=>{
-        return (
-          <div key={product.id}>
-            {product.name}
-          </div>
-        )
-      })}
+      <ProductList products={products.filter((product) => product.closed == false)} />
     </div>
     )
 }

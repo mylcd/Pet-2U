@@ -65,7 +65,7 @@ function StoreCreateForm() {
 
         <div>
           <button
-            disabled={(name.length < 3)}
+            disabled={(name.length < 3) || error}
             type="submit"
             className='apple-font form-button'
           >

@@ -9,11 +9,11 @@
   width: 266px;
   height: 310px;
   cursor: pointer;
-  background-color: rgb(163, 163, 163);
+  background-color: rgb(180, 180, 180);
 }
 
 .product-item:hover {
-  background-color: rgb(180, 180, 180);
+  background-color: rgb(163, 163, 163);
 }
 
 .product-preview {
@@ -35,10 +35,12 @@
 
 .product-name {
   color: rgb(72, 55, 110);
+  cursor: pointer;
 }
 
 .product-price {
   color: rgb(219, 127, 40);
+  cursor: pointer;
 }
 
 .product-error {

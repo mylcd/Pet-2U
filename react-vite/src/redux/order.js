@@ -16,7 +16,7 @@ export const getAllOrders = () => async (dispatch) => {
   }
 }
 
-export const createOrders = () => async (dispatch) => {
+export const createOrders = () => async () => {
   const res = await fetch("/api/orders/", {
     method: 'POST'
   });

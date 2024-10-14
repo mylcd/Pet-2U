@@ -11,7 +11,12 @@ function ProductList({ products }) {
         products.map((product)=>{
           return (
             <div className="product-item"  key={product.id}
-              onClick={() => navigate(`/products/${product.id}`)}>
+              onClick={() => {
+                if(product.id !=0) {
+                  navigate(`/products/${product.id}`)
+                }
+              }
+            }>
               <img className="product-preview"
                 src={product.previewImage=="default.png"
                 ? Default : product.previewImage}/>
