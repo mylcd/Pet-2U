@@ -33,6 +33,7 @@ class Product(db.Model):
       'id': self.id,
       'storeId': self.store_id,
       'name': self.name,
+      'description': self.description,
       'price': self.price,
       'stock': self.stock,
       'sold': self.sold,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import "./LoginForm.css";
+import LoginLogo from "./LoginLogo.svg";
 
 function LoginFormPage() {
   const location = useLocation();
@@ -37,35 +37,98 @@ function LoginFormPage() {
     }
   };
 
+  const handleDemoSubmit = () => {
+    return dispatch(thunkLogin({ email: "demo@aa.io", password: "password" }))
+    .then(() => dispatch(fetchFollowings()))
+      .then(closeModal)
+      .then(() => {
+        if(location.state) {
+          navigate(location.state.origin);
+        }
+        else {
+          navigate("/");
+        }
+      }
+    );
+  }
+
+  const handleSignup = () => {
+    if(location.state) {
+      navigate("/signup",
+        {state: {
+          origin : location.state.origin
+        }}
+      );
+    }
+    else {
+      navigate("/signup");
+    }
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+    <div className="middle">
+      <div className='apple-font auth-page'>
+        <div className='md-element'>
+          <img className='md-icon'
+            src={LoginLogo}
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
-      </form>
-    </>
+        </div>
+
+        <div className='md-element'>
+          <button
+            className='apple-font md-demo-button'
+            onClick={handleDemoSubmit}>
+              Log in as Demo User
+          </button>
+        </div>
+
+        <form className='md-element-form' onSubmit={handleSubmit}>
+
+          <label>
+            <b>Email</b>
+          </label>
+          <div>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder='Example: example@gmail.com'
+              required
+            />
+            {errors.email && (
+              <div className='error'>{errors.email}</div>
+            )}
+          </div>
+
+          <label>
+            <b>Password</b>
+          </label>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Password'
+              required
+            />
+            {!errors.email && errors.password && (
+              <div className='error'>{errors.password}</div>
+            )}
+          </div>
+
+
+
+          <button type="submit" className='apple-font md-button'
+            disabled={!email || !password || email.length < 8 || password.length < 6}>
+              Log In
+          </button>
+
+          <div>
+            Don’t have an account? <label onClick={handleSignup}>Sign up</label>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

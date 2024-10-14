@@ -12,7 +12,19 @@ def get_all_products():
     'Products': [product.to_dict() for product in products]
   }
 
-  return jsonify(products_res)
+  return jsonify(products_res), 200
+
+@product_routes.route('/<int:id>')
+def get_product_details(id):
+  product = Product.query.get(id)
+  product_res = {}
+  if product:
+    product_res = product.to_dict()
+    product_res["Images"] = [product_image.to_dict() for product_image in product.product_images]
+    product_res["Store"] = product.store.to_dict()
+    product_res["Owner"] = product.store.user.to_dict()
+
+  return jsonify(product_res), 200
 
 @product_routes.route('/stores/<int:store_id>')
 def get_store_products(store_id):
@@ -21,7 +33,7 @@ def get_store_products(store_id):
     'Products': [product.to_dict() for product in products]
   }
 
-  return jsonify(products_res)
+  return jsonify(products_res), 200
 
 @product_routes.route('/', methods=["POST"])
 @login_required
@@ -72,6 +84,7 @@ def update_products(id):
     product.description = form.data['description']
     product.price = form.data['price']
     product.stock = form.data['stock']
+    product.preview_image = form.data['preview']
     db.session.commit()
 
     product_images = ProductImage.query.filter(ProductImage.product_id == product.id).all()

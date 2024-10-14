@@ -9,6 +9,8 @@ import StorePage from '../components/StorePage';
 import StoreCreateForm from '../components/StoreCreateForm';
 import StoreEditForm from '../components/StoreEditForm';
 import ProductCreateForm from '../components/ProductCreateForm';
+import ProductPage from '../components/ProductPage';
+import ProductEditForm from '../components/ProductEditForm';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -26,6 +28,14 @@ export const router = createBrowserRouter([
       {
         path: "orders",
         element: <OrderPage />,
+      },
+      {
+        path: "products/:id/edit",
+        element: <ProductEditForm />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductPage />,
       },
       {
         path: "products",

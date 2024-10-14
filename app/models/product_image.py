@@ -16,3 +16,12 @@ class ProductImage(db.Model):
   updated_on = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
 
   product = db.relationship('Product', back_populates="product_images")
+
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'productId': self.product_id,
+      'url': self.url,
+      'created_on': self.created_on,
+      'updated_on': self.updated_on
+    }

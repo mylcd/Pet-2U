@@ -133,7 +133,7 @@ function ProductCreateForm() {
         <div className='form-hiddenimage'>
           {images.map((image, idx) => {
             return (
-              <div className='form-hiddencross'>
+              <div className='form-hiddencross' key={idx}>
                 <img className='form-image' src={image}/>
                 <div
                   className='form-cross'
@@ -141,7 +141,7 @@ function ProductCreateForm() {
                   let newArr = JSON.parse(JSON.stringify(images));
                   newArr.splice(idx, 1);
                   setImages(newArr);
-                  }} key={image}>
+                  }}>
                   X
                 </div>
               </div>);
