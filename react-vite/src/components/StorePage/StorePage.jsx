@@ -20,7 +20,7 @@ function StorePage() {
   useEffect(() => {
     dispatch(getStoreProducts(id));
     dispatch(getStoreDetails(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const handleNavigateEdit = e => {
     e.preventDefault();

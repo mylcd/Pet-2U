@@ -39,8 +39,6 @@ function LoginFormPage() {
 
   const handleDemoSubmit = () => {
     return dispatch(thunkLogin({ email: "demo@aa.io", password: "password" }))
-    .then(() => dispatch(fetchFollowings()))
-      .then(closeModal)
       .then(() => {
         if(location.state) {
           navigate(location.state.origin);

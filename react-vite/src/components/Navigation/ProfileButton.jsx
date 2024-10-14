@@ -12,6 +12,10 @@ function ProfileButton() {
     navigate('/profile');
   }
 
+  const handleNavigateCreateStore = () => {
+    navigate('/stores/new');
+  }
+
   const handleLogin = () => {
     navigate('/login');
   }
@@ -37,6 +41,7 @@ function ProfileButton() {
           {user ? (
             <div className="nav-profile apple-font">
               <div className='nav-button' onClick={handleNavigateProfile}>Profile</div>
+              <div className='nav-button' onClick={handleNavigateCreateStore}>Create Store</div>
               <div className='nav-button' onClick={logout}>Log Out</div>
             </div>
           ) : (
