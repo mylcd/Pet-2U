@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProductDetails } from "../../redux/product";
 import "./ProductDetail.css";
 import Default from "../ProductComponents/default.png";
+import ProductDeleteModal from './ProductDeleteModal';
+import OpenModalButton from '../OpenModalButton';
 
 function ProductPage() {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ function ProductPage() {
         oldPrice: product.price.toString(),
         oldStock: product.stock.toString(),
         oldPreview: product.previewImage,
-        oldImages: product.Images.map((image) => image.url)
+        oldImages: product.Images.map((image) => image.url),
       }}
     );
   }
@@ -87,26 +89,48 @@ function ProductPage() {
             <div className="productdetail-info">
               <div className="in-between">
                 <div className="productdetail-title">{product.name}</div>
-                {sessionUser && (sessionUser.id == product.Owner.id) &&
-                  <button
-                    className="form-button productdetail-edit"
-                    type="button"
-                    onClick={handleNavigateEdit}
-                  >
-                    Edit
-                  </button>
-                }
+                <div>
+                  {sessionUser && (sessionUser.id == product.Owner.id) &&
+                    <button
+                      type="button"
+                      onClick={handleNavigateEdit}
+                    >
+                      Edit
+                    </button>
+                  }
+                  {product.Store.closed ?
+                    <button
+                      type="button"
+                      disabled={true}
+                    >
+                      Store Deleted
+                    </button>
+                    :
+                    <OpenModalButton
+                      buttonText={(product.closed == true) ? "Relist" : "Delete"}
+                      modalComponent={<ProductDeleteModal productId={id} closed={product.closed}/>}
+                    />
+                  }
+                </div>
               </div>
               <div className="productdetail-store">
                 <div>Sold by {product.Store.name}, </div>
                 <a href={`/stores/${product.Store.id}`}>Go to store page</a>
               </div>
-              <div className="productdetail-rating">
-                Rating Working In Progress
-              </div>
-              <div className="productdetail-description">
-                {product.description}
-              </div>
+              {product.closed ?
+                <div className="error">
+                  This product was deleted, contact store owner if you are interested
+                </div>
+                :
+                <>
+                  <div className="productdetail-rating">
+                    Rating Working In Progress
+                  </div>
+                  <div className="productdetail-description">
+                    {product.description}
+                  </div>
+                </>
+              }
             </div>
 
             <div className="productdetail-order">
@@ -118,7 +142,7 @@ function ProductPage() {
                   {Math.round(product.price * 100 % 100)}
                 </label>
               </div>
-              {product.stock > 0 ?
+              {(product.stock > 0) && (!product.closed) ?
                 <div className="green margin10 in-between">
                   <div>In Stock</div>
                   <div className="productdetail-sold">{product.sold} sold</div>

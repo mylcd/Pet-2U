@@ -112,7 +112,7 @@ def delete_products(id):
   if not product:
     return jsonify({"message": "Product not found"}), 404
 
-  if product.user_id != current_user.id:
+  if product.store.user_id != current_user.id:
     return jsonify({"message": "Forbidden"}), 403
 
   product.closed = True
@@ -127,7 +127,7 @@ def reopen_products(id):
   if not product:
     return jsonify({"message": "Product not found"}), 404
 
-  if product.user_id != current_user.id:
+  if product.store.user_id != current_user.id:
     return jsonify({"message": "Forbidden"}), 403
 
   product.closed = False

@@ -65,7 +65,7 @@ function StorePage() {
           }
 
           {(store.closed == true) ?
-            <div>Store Temporarily Closed</div>
+            <div className="error margin10">Store Temporarily Closed</div>
             :
             <>
               <div className="store-subtitle">About Seller: </div>

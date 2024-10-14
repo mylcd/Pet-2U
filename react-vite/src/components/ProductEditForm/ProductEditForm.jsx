@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Navigate, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { editProducts } from "../../redux/product";
+import { editProducts, getProductDetails } from "../../redux/product";
 import ProductList from '../ProductComponents/ProductList';
 
 function ProductEditForm() {

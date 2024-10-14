@@ -75,6 +75,36 @@ export const editProducts = (body) => async () => {
   }
 };
 
+export const closeProduct = (id) => async () => {
+  const res = await fetch(`/api/products/${id}`, {
+    method: 'DELETE',
+  });
+  if(res.ok) {
+    const data = await res.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await res.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+};
+
+export const openProduct = (id) => async () => {
+  const res = await fetch(`/api/products/${id}/reopen`, {
+    method: 'POST',
+  });
+  if(res.ok) {
+    const data = await res.json();
+    return data;
+  } else if (res.status < 500) {
+    const errorMessages = await res.json();
+    return errorMessages;
+  } else {
+    return { server: "Internal Server Error" };
+  }
+};
+
 // Reducer
 const initialState = {
   allProducts: [],
