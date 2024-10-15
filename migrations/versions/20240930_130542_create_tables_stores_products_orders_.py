@@ -47,7 +47,7 @@ def upgrade():
     sa.Column('sold', sa.Integer(), nullable=False),
     sa.Column('review_count', sa.Integer(), nullable=False),
     sa.Column('avg_star', sa.Float(), nullable=False),
-    sa.Column('preview_image', sa.String(length=1000), nullable=False),
+    sa.Column('preview_image', sa.String(length=100000), nullable=False),
     sa.Column('closed', sa.Boolean, nullable=False, default=False),
     sa.Column('created_on', sa.DateTime(), nullable=True),
     sa.Column('updated_on', sa.DateTime(), nullable=True),

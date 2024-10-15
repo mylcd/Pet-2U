@@ -98,7 +98,9 @@ function ProductPage() {
                       Edit
                     </button>
                   }
-                  {product.Store.closed ?
+                  {sessionUser &&
+                    (sessionUser.id == product.Owner.id) &&
+                    product.Store.closed ?
                     <button
                       type="button"
                       disabled={true}

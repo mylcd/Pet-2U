@@ -17,7 +17,7 @@ class Product(db.Model):
   sold = db.Column(db.Integer, nullable=False)
   review_count = db.Column(db.Integer, nullable=False)
   avg_star = db.Column(db.Float, nullable=False)
-  preview_image = db.Column(db.String(1000), nullable=False)
+  preview_image = db.Column(db.String(100000), nullable=False)
   closed = db.Column(db.Boolean, nullable=False, default=False)
 
   created_on = db.Column(db.DateTime, default=datetime.now())
