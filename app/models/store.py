@@ -11,7 +11,7 @@ class Store(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   name = db.Column(db.String(100), nullable=False)
-  description = db.Column(db.String(1000), nullable=False)
+  description = db.Column(db.String(10000), nullable=False)
   closed = db.Column(db.Boolean, nullable=False, default=False)
 
   created_on = db.Column(db.DateTime, default=datetime.now())
