@@ -1,0 +1,17 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  width: 1300px;
+  margin-left: calc(50% - 650px);
+}
+
+.profile-order {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-orderimage {
+  width: 100px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
