@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 
+// deprecated. Using LoginFormPage as main way to login and signup
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");

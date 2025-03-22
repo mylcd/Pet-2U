@@ -13,8 +13,10 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  // if already logged in, go to main page
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
+  // submission for login
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,6 +39,7 @@ function LoginFormPage() {
     }
   };
 
+  // login as demo user
   const handleDemoSubmit = () => {
     return dispatch(thunkLogin({ email: "demo@aa.io", password: "password" }))
       .then(() => {
@@ -50,8 +53,10 @@ function LoginFormPage() {
     );
   }
 
+  // navigate to signup page
   const handleSignup = () => {
     if(location.state) {
+      // pass down the previous location
       navigate("/signup",
         {state: {
           origin : location.state.origin
