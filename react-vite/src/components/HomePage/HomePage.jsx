@@ -1,16 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import { useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../redux/product";
 import ProductList from "../ProductComponents/ProductList";
 
 function HomePage() {
   const dispatch = useDispatch();
-  //const navigate = useNavigate();
 
   const products = useSelector(state => state.product.allProducts);
-  //const sessionUser = useSelector(state => state.session.user);
-
+  
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
