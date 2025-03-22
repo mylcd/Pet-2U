@@ -7,9 +7,11 @@ import "./Navigation.css";
 function Navigation() {
   const navigate = useNavigate();
 
+  // Home icon navigates to home page
   const handleNavigateHome = () => {
     navigate('/');
   }
+  // Cart icon navigates to Shopping Cart page
   const handleNavigateCart = () => {
     navigate('/cart');
   }

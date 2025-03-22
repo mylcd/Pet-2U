@@ -1,5 +1,6 @@
 import { useModal } from '../../context/Modal';
 
+// deprecated, not using Modal functions in production
 function OpenModalMenuItem({
   modalComponent, // component to render inside the modal
   itemText, // text of the button that opens the modal

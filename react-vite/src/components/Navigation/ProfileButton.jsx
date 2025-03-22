@@ -8,6 +8,8 @@ function ProfileButton() {
 
   const navigate = useNavigate();
 
+  // Profile Pop-ups navigations
+  // Logout will not navigate, and log the current user out
   const handleNavigateProfile = () => {
     navigate('/profile');
   }
